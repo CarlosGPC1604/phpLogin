@@ -18,45 +18,41 @@ header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Verificar si la solicitud es desde un entorno web
-if (php_sapi_name() !== 'cli' && isset($_SERVER['REQUEST_METHOD'])) {
-    // Activar el output buffering
-    ob_start();
-
-    // Incluir archivos PHP y capturar su contenido
-    include __DIR__ . '/../../includes/head.php';
-    $html = ob_get_clean();
-
-    include __DIR__ . '/../../includes/header.php';
-    $html .= ob_get_clean();
-
-    // Verificar si la solicitud es POST
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        $html .= "<h1>Error: Este script debe ejecutarse con el método POST.</h1>";
-    } else {
-        // Obtener y verificar los datos de la solicitud
-        $username = $_POST['username'] ?? null;
-        $password = $_POST['password'] ?? null;
-
-        if (!isset($username) || !isset($password)) {
-            $html .= "<h1>Parámetros incorrectos</h1>";
-        } else {
-            // Verificar credenciales
-            if (checkCredentials($username, $password)) {
-                $html .= "<h1>Bienvenido, $username</h1>";
-            } else {
-                $html .= "<h1>Credenciales incorrectas</h1>";
-            }
-        }
-    }
-
-    
-    include __DIR__ . '/../../includes/footer.php';
-    $html .= ob_get_clean();
-
+if (!isset($_SERVER['REQUEST_METHOD'])) {
+    $html .= "<h1>Error: Este script debe ejecutarse en un entorno de servidor web.</h1>";
     echo $html;
-} else {
-    echo "<h1>Error: Este script debe ejecutarse en un entorno de servidor web.</h1>";
+    exit();
 }
+
+// Verificar si la solicitud es POST
+$_SERVER['REQUEST_METHOD'] !== 'POST' ?: $html .= "<h1>Error: Este script debe ejecutarse con el método POST.</h1>";
+
+// Si no es POST, imprimir error y terminar
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo $html;
+    exit();
+}
+
+// Obtener y verificar los datos de la solicitud
+$username = $_POST['username'] ?? null;
+$password = $_POST['password'] ?? null;
+
+// Verificar si los parámetros están presentes
+isset($username) && isset($password) ?: $html .= "<h1>Parámetros incorrectos</h1>";
+
+// Si faltan parámetros, imprimir error y terminar
+if (!isset($username) || !isset($password)) {
+    echo $html;
+    exit();
+}
+
+// Verificar credenciales
+$html .= checkCredentials($username, $password) ? "<h1>Bienvenido, $username</h1>" : "<h1>Credenciales incorrectas</h1>";
+
+// Incluir el footer y terminar
+include __DIR__ . '/../../includes/footer.php';
+$html .= ob_get_clean();
+echo $html;
 
 /**
  * @param string $username
