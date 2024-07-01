@@ -1,11 +1,66 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f0f0;
+:root {
+    --main-bg-color: #272727;
+    --second-bg-color: #222222;
+    --accent-bg-color: #D64550;
+    --main-text-color: #fffdfd;
+    --accent-color: #FF2133;
 }
 
-main{
+body {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    padding: 0;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-bg-color);
+    border: 0px none;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-bg-color);
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: var(--accent-color);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--main-bg-color);
+    border: 0px none;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-track:hover {
+    background: var(--main-bg-color);
+}
+
+::-webkit-scrollbar-track:active {
+    background: var(--second-bg-color);
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+main {
     margin: 0 auto;
     max-width: 90vw;
     padding: 2rem;
@@ -15,41 +70,60 @@ main{
 }
 
 h1 {
+    margin: 0;
+    width: 100%;
     font-size: 2rem;
-    margin-bottom: 1rem;
 }
 
 form {
     padding: 3rem;
-    background-color:#e6f8ff;
-    border: 1px solid #007bff52;
-    border-radius: 20px;
+    background-color: var(--second-bg-color);
+    border: 1px solid --accent-color;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
+    border-radius: 20px;
 }
 
-form > input[type="submit"] {
+form>input[type="submit"] {
     width: 100%;
     margin-top: 1rem;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--accent-bg-color);
+    color: var(--main-text-color);
     border: none;
     padding: 0.5rem 1rem;
     cursor: pointer;
     border-radius: 5px;
 }
 
-input{
+input {
     margin: 0.25rem 0;
     height: 2rem;
     padding: 0.3rem;
     text-align: center;
     box-sizing: border-box;
-    border-radius: 5px;
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    border: 1px solid var(--accent-color);
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: var(--second-bg-color);
+    color: var(--main-text-color);
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2rem;
 }
