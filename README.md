@@ -34,12 +34,14 @@ Este es un proyecto básico de login desarrollado en PHP para demostrar cómo cr
 5. Usuario por defecto: `admin`. Contraseña por defecto `admin`. 
 
 Considera configurar las variables de entorno en el archivo `.env`. El proyecto está preparado para usar MySQL; podrás ver una demostración en `login.php`.
-/raíz-del-proyecto
-│   .env
-└─── scripts
-    └─── login
-        └─── login.php
-
+```plaintext
+/login-php
+├── .env
+├── index.php
+└── scripts
+    └── login
+        └── login.php
+```
 ## Contribución
 
 Si deseas contribuir a este proyecto, por favor sigue estos pasos:
