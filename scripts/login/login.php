@@ -1,10 +1,10 @@
 <?php
-require 'vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
-// Cargar variables de entorno
-$dotenv = Dotenv::createImmutable(__DIR__);
+// Cargar variables de entorno desde el directorio raíz del proyecto
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 // Configuración de la base de datos usando variables de entorno
@@ -16,6 +16,12 @@ $dbName = $_ENV['DB_NAME'];
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
+
+// Verificar si la solicitud es desde un entorno web
+if (!isset($_SERVER['REQUEST_METHOD'])) {
+    echo "<html><body><h1>Error: Este script debe ejecutarse en un entorno de servidor web.</h1></body></html>";
+    exit;
+}
 
 // Verificar si la solicitud es POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
