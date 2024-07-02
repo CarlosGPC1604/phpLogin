@@ -17,6 +17,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
+ob_start();
+include __DIR__ . '/../../includes/head.php';
+$html = ob_get_clean();
+include __DIR__ . '/../../includes/header.php';
+$html .= ob_get_clean();
+
 // Verificar si la solicitud es desde un entorno web
 if (!isset($_SERVER['REQUEST_METHOD'])) {
     $html .= "<h1>Error: Este script debe ejecutarse en un entorno de servidor web.</h1>";
@@ -25,7 +31,7 @@ if (!isset($_SERVER['REQUEST_METHOD'])) {
 }
 
 // Verificar si la solicitud es POST
-$_SERVER['REQUEST_METHOD'] !== 'POST' ?: $html .= "<h1>Error: Este script debe ejecutarse con el método POST.</h1>";
+$_SERVER['REQUEST_METHOD'] == 'POST' ?: $html .= "<h1>Error: Este script debe ejecutarse con el método POST.</h1>";
 
 // Si no es POST, imprimir error y terminar
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
